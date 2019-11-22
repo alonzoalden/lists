@@ -1,0 +1,77 @@
+<!-- <app-header></app-header> -->
+<mat-toolbar color="primary" style="display: flex; justify-content: space-between; ">
+
+  <div style="cursor: pointer;" >
+    <button mat-icon-button (click)="snav.toggle()" style="margin-right: 10px;"><mat-icon>menu</mat-icon></button>
+    <span [routerLink]="['']">Listz</span>
+  </div>
+  <div>Sign In</div>
+</mat-toolbar>
+
+<mat-sidenav-container class="full-page">
+  <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" opened style="width: 33%;" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" #snav>
+    <mat-action-list style="height: 80px; margin-bottom: 5px;" color="primary" class="mat-elevation-z3">
+      <!-- <div style="width: 100%; height: 100%" mat-list-item> -->
+        <button style="width: 100%; height: 100%" mat-button color="primary" [routerLink]="['edit']">
+          <div class="left-panel-header-main valign-center" style="padding: 10px;">
+            <mat-icon aria-hidden="false">playlist_add</mat-icon>
+            <span class="left-panel-title">New List</span>
+          </div>
+        </button>
+      <!-- </div> -->
+    </mat-action-list>
+    <mat-toolbar >
+        <form style="width: 100%;">
+          <input class="search-input">
+        </form>
+
+      <button mat-icon-button matTooltip="Search" color="primary">
+        <mat-icon aria-hidden="false">search</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div>
+      <mat-expansion-panel style="box-shadow: none;"
+                          (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+        <mat-expansion-panel-header style="padding-left: 16px;">
+          <mat-panel-title class="left-panel-header">
+            FISHING
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-action-list>
+          <button mat-list-item class="left-panel-header"> SHORE </button>
+          <button mat-list-item class="left-panel-header"> PIER </button>
+        </mat-action-list>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel style="box-shadow: none;"
+                          (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+        <mat-expansion-panel-header style="padding-left: 16px;">
+          <mat-panel-title class="left-panel-header">
+            GROCERIES
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-action-list>
+          <button mat-list-item class="left-panel-header"> HEALTHY </button>
+          <button mat-list-item class="left-panel-header"> BUDGET </button>
+        </mat-action-list>
+
+      </mat-expansion-panel>
+
+      <mat-action-list>
+        <button mat-list-item class="left-panel-header"> WORK </button>
+        <button mat-list-item class="left-panel-header"> SWIMMING </button>
+        <button mat-list-item class="left-panel-header"> GROCERY MAIN </button>
+
+      </mat-action-list>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
