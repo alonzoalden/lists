@@ -316,9 +316,9 @@ span.left-panel-title {
   font-size: 14px;
 }
 .mat-list-item {
-  border-bottom: 1px solid #f9f9f9;
+  border-bottom: 1px solid #e4e4e4;
 }
 .mat-expansion-panel-header {
-  border-bottom: 1px solid #f9f9f9;
+  border-bottom: 1px solid #e4e4e4;
   padding-top: 1px;
 }

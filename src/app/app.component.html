@@ -8,8 +8,8 @@
   <div>Sign In</div>
 </mat-toolbar>
 
-<mat-sidenav-container class="full-page">
-  <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" opened style="width: 33%;" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" #snav>
+<mat-sidenav-container class="full-page" >
+  <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" opened style="width: 33%; min-width: 280px;" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" #snav>
     <mat-action-list style="height: 80px; margin-bottom: 5px;" color="primary" class="mat-elevation-z3">
       <!-- <div style="width: 100%; height: 100%" mat-list-item> -->
         <button style="width: 100%; height: 100%" mat-button color="primary" [routerLink]="['edit']">

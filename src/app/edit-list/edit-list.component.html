@@ -1,5 +1,5 @@
 <div class="wrapper" style="border-radius: 14px;">
-  <mat-toolbar class="mat-elevation-z4" style="border-radius: 2px 2px 0 0;" >
+  <mat-toolbar color="accent" class="mat-elevation-z2" style="border-radius: 2px 2px 0 0;" >
     Enter New List Information
   </mat-toolbar>
   <div class="mat-elevation-z4" style="border-radius: 0 0 2px 2px ; padding: 0 16px; background-color: #fff;">
@@ -10,9 +10,18 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Title</mat-label>
-        <input matInput placeholder="Placeholder">
+        <input matInput placeholder="Enter title">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         <mat-hint>Please enter a title for your list</mat-hint>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
   </div>

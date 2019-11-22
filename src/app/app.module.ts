@@ -18,7 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditListComponent } from './edit-list/edit-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatDividerModule,
     MatIconModule,
     MatListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
