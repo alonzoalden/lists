@@ -3,5 +3,17 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .wrapper {
-  padding: 40px;
+  padding: 30px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+.item-view span {
+  padding: 0 10px;
+  font-weight: 300;
+
+}
+.item-view .mat-list-item-content {
+  padding: 10px !important;
 }

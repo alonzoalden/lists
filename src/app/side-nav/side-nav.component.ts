@@ -1,23 +1,16 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-// import { DomSanitizer } from '@angular/platform-browser';
-// import { MatIconRegistry } from '@angular/material/icon';
-
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-side-nav',
+  templateUrl: './side-nav.component.html',
+  styleUrls: ['./side-nav.component.css']
 })
-
-export class AppComponent implements OnInit, OnDestroy {
-  title = 'lists';
+export class SideNavComponent implements OnInit, OnDestroy {
   panelOpenState: boolean;
   mobileQuery: MediaQueryList;
   @ViewChild('snav', {static: true}) snav: MatSidenav;
-
   // tslint:disable-next-line: variable-name
   private _mobileQueryListener: () => void;
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
@@ -25,14 +18,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
-
   }
+
   ngOnInit() {
-    console.log(this.snav);
   }
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 }
-

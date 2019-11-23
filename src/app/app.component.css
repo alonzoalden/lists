@@ -322,3 +322,6 @@ span.left-panel-title {
   border-bottom: 1px solid #e4e4e4;
   padding-top: 1px;
 }
+.search-left-section .mat-form-field-wrapper {
+  padding: 5px !important;
+}

@@ -19,16 +19,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditListComponent } from './edit-list/edit-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     EditListComponent,
-    DashboardComponent
+    DashboardComponent,
+    SideNavComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -42,9 +46,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatListModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
