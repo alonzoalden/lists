@@ -1,3 +1,4 @@
+import { List } from './../models/list.component';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
@@ -13,5 +14,10 @@ export class ListService {
   public getListings(): Observable<any> {
     return this.http.get('/api/lists')
       .pipe(map(data => data));
+  }
+
+  public addListing(list: any): Observable<any> {
+    return this.http.post('/api/lists', list)
+      .pipe(data => data);
   }
 }

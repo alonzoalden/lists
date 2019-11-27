@@ -21,6 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     MatListModule,
     MatTooltipModule,
     MatSelectModule,
+    FormsModule
   ],
   bootstrap: [AppComponent]
 })

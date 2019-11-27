@@ -2,7 +2,7 @@
   <mat-toolbar color="primary" class="mat-elevation-z2" style="border-radius: 2px 2px 0 0;" >
     <span>Create New List</span>
     <span class="spacer"></span>
-    <button mat-raised-button (click)="addNewLine();" matTooltip="Save list" >
+    <button mat-raised-button (click)="addNewList();" matTooltip="Save list" >
       <mat-icon class="mat-18">save</mat-icon>
     </button>
 
@@ -11,8 +11,8 @@
     <form class="example-form" style="padding: 16px 0px; display: flex; flex-direction: column;">
 
       <mat-form-field style="margin-bottom: 12px;" appearance="outline">
-        <mat-label>Title</mat-label>
-        <input required matInput placeholder="Enter title">
+        <mat-label >Title</mat-label>
+        <input name="Title" [(ngModel)]="list.Title" required matInput placeholder="Enter title">
         <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
         <mat-hint>Please enter a title for your list</mat-hint>
       </mat-form-field>
@@ -20,11 +20,11 @@
       <ng-container>
         <mat-form-field style="margin-bottom: 12px;" *ngIf="!isTest" appearance="outline">
           <mat-label>Category</mat-label>
-          <mat-select (click)="isTest = true;">
-            <mat-option>
+          <mat-select name="Category" [(ngModel)]="list.Category" (click)="isTest = true;">
+            <mat-option value="CreateNew">
               - Create New Category -
             </mat-option>
-            <mat-option value="none">
+            <mat-option value="None">
               - None -
             </mat-option>
           </mat-select>
@@ -33,9 +33,10 @@
 
         <mat-form-field style="margin-bottom: 12px;" *ngIf="isTest"  appearance="outline">
           <mat-label>New Category</mat-label>
-          <input matInput placeholder="Enter Title">
+          <input name="Category" [(ngModel)]="list.Category" matInput placeholder="Enter Category">
           <mat-icon matSuffix>arrow_drop_down</mat-icon>
-          <mat-hint>Please enter a title to create a new category, or select an existing one.</mat-hint>
+          <!-- <mat-hint>Please enter a title to create a new category, or you may select an existing one.</mat-hint> -->
+          <mat-hint>Enter a title to create a new category.</mat-hint>
         </mat-form-field>
       </ng-container>
 

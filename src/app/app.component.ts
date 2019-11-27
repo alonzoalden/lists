@@ -28,7 +28,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
-    console.log(this.snav);
   }
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation

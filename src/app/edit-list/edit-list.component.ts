@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { List } from './../core/models/list.component';
+import { ListService } from './../core/services/list.service';
+import { Component, OnInit, ɵCompiler_compileModuleAndAllComponentsSync__POST_R3__ } from '@angular/core';
 import { ImageService } from '../core/services/image.service';
 class ImageSnippet {
   pending = false;
@@ -14,9 +16,14 @@ class ImageSnippet {
 export class EditListComponent implements OnInit {
   isTest: boolean;
   selectedFile: any;
-  constructor(private imageService: ImageService) { }
+  list: List;
+  constructor(
+    private imageService: ImageService,
+    private listService: ListService
+  ) { }
 
   ngOnInit() {
+    this.list = new List(null, null, null, null, null, null, null, []);
   }
   addNewLine() {
   }
@@ -36,5 +43,8 @@ export class EditListComponent implements OnInit {
     });
 
     reader.readAsDataURL(file);
+  }
+  addNewList() {
+    this.listService.addListing(this.list).subscribe();
   }
 }
