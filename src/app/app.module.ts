@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,8 +19,10 @@ import { EditListComponent } from './edit-list/edit-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
-import { SideNavComponent } from './side-nav/side-nav.component';
 import { FormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpTokenInterceptor } from './core/interceptors/http.token.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,6 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     EditListComponent,
     DashboardComponent,
-    SideNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +48,11 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     MatTooltipModule,
     MatSelectModule,
+    MatMenuModule,
     FormsModule
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

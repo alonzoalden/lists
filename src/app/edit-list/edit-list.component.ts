@@ -1,6 +1,6 @@
 import { List } from './../core/models/list.component';
 import { ListService } from './../core/services/list.service';
-import { Component, OnInit, ɵCompiler_compileModuleAndAllComponentsSync__POST_R3__ } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../core/services/image.service';
 class ImageSnippet {
   pending = false;
