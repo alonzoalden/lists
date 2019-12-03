@@ -1,4 +1,4 @@
-import { List } from './core/models/list.component';
+import { List, Category } from './core/models/list.component';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
@@ -16,6 +16,8 @@ import { ListService } from './core/services/list.service';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'lists';
   lists: List[];
+  categories: Category[];
+  uncategorized: List[];
   panelOpenState: boolean;
   mobileQuery: MediaQueryList;
   @ViewChild('snav', {static: true}) snav: MatSidenav;
@@ -34,8 +36,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
-    // this.listService.getListings().subscribe(data => this.lists = data);
-    this.listService.getListings().subscribe(data => console.log(data));
+    this.listService.getListings().subscribe(data => {
+      const uncategorized = data.find((item) => item.Title === null);
+      if (uncategorized) {
+        this.uncategorized = uncategorized.Lists;
+      }
+      this.categories = data;
+    });
   }
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation

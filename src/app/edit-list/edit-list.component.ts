@@ -1,4 +1,4 @@
-import { List } from './../core/models/list.component';
+import { List, Category } from './../core/models/list.component';
 import { ListService } from './../core/services/list.service';
 import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../core/services/image.service';
@@ -17,13 +17,19 @@ export class EditListComponent implements OnInit {
   isTest: boolean;
   selectedFile: any;
   list: List;
+  categories: Category[];
   constructor(
     private imageService: ImageService,
     private listService: ListService
   ) { }
 
   ngOnInit() {
-    this.list = new List(null, null, null, null, null, null, null, []);
+    this.list = new List(null, null, null, null, null, null, null, null, []);
+    this.listService.getListings().subscribe(data => {
+      const index = data.findIndex(items => items.Title === 'None');
+      data.splice(index, 1);
+      this.categories = data;
+    });
   }
   addNewLine() {
   }

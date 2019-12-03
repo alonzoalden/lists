@@ -1,13 +1,25 @@
-export class List {
+export class Category {
   constructor(
-      public ListID: number,
+      public CategoryID: number,
       public Title: string,
-      public Category: string,
       public Description: number,
       public ImageURL: number,
       public Created: Date,
       public Updated: Date,
-      public Items: Array<ListItem>,
+      public Lists: Array<ListItem>
+  ) {}
+}
+export class List {
+  constructor(
+      public ListID: number,
+      public CategoryID: string,
+      public Title: string,
+      public CategoryTitle: string,
+      public Description: number,
+      public ImageURL: number,
+      public Created: Date,
+      public Updated: Date,
+      public Items: Array<ListItem>
   ) {}
 }
 export class ListItem {

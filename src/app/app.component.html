@@ -21,41 +21,27 @@
 
     </div>
     <div>
-      <mat-expansion-panel style="box-shadow: none;"
+      <mat-expansion-panel *ngFor="let category of categories"
+                          style="box-shadow: none;"
                           (opened)="panelOpenState = true"
                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header style="padding-left: 16px;">
+        <mat-expansion-panel-header *ngIf="category.Title" style="padding-left: 16px;">
           <mat-panel-title class="left-panel-header">
-            FISHING
+            {{ category.Title }}
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-action-list>
-          <button mat-list-item class="left-panel-header"> SHORE </button>
-          <button mat-list-item class="left-panel-header"> PIER </button>
-        </mat-action-list>
-
-      </mat-expansion-panel>
-
-      <mat-expansion-panel style="box-shadow: none;"
-                          (opened)="panelOpenState = true"
-                          (closed)="panelOpenState = false">
-        <mat-expansion-panel-header style="padding-left: 16px;">
-          <mat-panel-title class="left-panel-header">
-            GROCERIES
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-action-list>
-          <button mat-list-item class="left-panel-header"> HEALTHY </button>
-          <button mat-list-item class="left-panel-header"> BUDGET </button>
-        </mat-action-list>
+            <mat-list-item *ngFor="let list of category.Lists">
+              <button class="left-panel-header"> {{ list.Title }} </button>
+            </mat-list-item>
+          </mat-action-list>
 
       </mat-expansion-panel>
 
       <mat-action-list>
-        <button mat-list-item class="left-panel-header"> WORK </button>
-        <button mat-list-item class="left-panel-header"> SWIMMING </button>
-        <button mat-list-item class="left-panel-header"> GROCERY MAIN </button>
-
+        <mat-list-item *ngFor="let list of uncategorized">
+          <button class="left-panel-header"> {{ list.Title }} </button>
+        </mat-list-item>
       </mat-action-list>
     </div>
   </mat-sidenav>
