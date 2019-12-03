@@ -36,12 +36,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
-    this.listService.getListings().subscribe(data => {
-      const uncategorized = data.find((item) => item.Title === null);
-      if (uncategorized) {
-        this.uncategorized = uncategorized.Lists;
+    this.listService.getListings();
+    this.listService.currentListings.subscribe(data => {
+      if (data) {
+        const uncategorized = data.find((item) => item.Title === null);
+        if (uncategorized) {
+          this.uncategorized = uncategorized.Lists;
+        }
+        this.categories = data;
       }
-      this.categories = data;
     });
   }
   ngOnDestroy(): void {

@@ -25,7 +25,7 @@ export class EditListComponent implements OnInit {
 
   ngOnInit() {
     this.list = new List(null, null, null, null, null, null, null, null, []);
-    this.listService.getListings().subscribe(data => {
+    this.listService.currentListings.subscribe(data => {
       const index = data.findIndex(items => items.Title === 'None');
       data.splice(index, 1);
       this.categories = data;

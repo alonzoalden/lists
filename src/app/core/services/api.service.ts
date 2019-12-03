@@ -12,7 +12,6 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   private formatErrors(error: any) {
-    console.log(error);
     return throwError(error);
   }
 
@@ -29,7 +28,6 @@ export class ApiService {
   }
 
   post(path: string, body: any): Observable<any> {
-    console.log(body);
     return this.http
       .post(`${environment.api_url_dev}${path}`, JSON.stringify(body))
       .pipe(catchError(this.formatErrors));

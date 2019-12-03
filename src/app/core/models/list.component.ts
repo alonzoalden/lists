@@ -6,7 +6,7 @@ export class Category {
       public ImageURL: number,
       public Created: Date,
       public Updated: Date,
-      public Lists: Array<ListItem>
+      public Lists: Array<List>
   ) {}
 }
 export class List {
