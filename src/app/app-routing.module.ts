@@ -1,3 +1,4 @@
+import { ViewListComponent } from './view-list/view-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditListComponent } from './edit-list/edit-list.component';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,11 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditListComponent
-  }
+  },
+  {
+    path: 'view/:id',
+    component: ViewListComponent
+  },
 ];
 
 @NgModule({

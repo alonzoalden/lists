@@ -12,7 +12,7 @@ export class Category {
 export class List {
   constructor(
       public ListID: number,
-      public CategoryID: string,
+      public CategoryID: number,
       public Title: string,
       public CategoryTitle: string,
       public Description: number,

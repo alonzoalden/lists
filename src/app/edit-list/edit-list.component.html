@@ -39,15 +39,15 @@
       <ng-container>
         <mat-form-field style="margin-bottom: 12px;" *ngIf="!isTest" appearance="outline">
           <mat-label>Category</mat-label>
-          <mat-select name="Category" [(ngModel)]="list.CategoryTitle">
+          <mat-select name="Category" [(ngModel)]="list.CategoryID">
             <mat-option value="None">
               -- None --
             </mat-option>
-            <mat-option value="" (click)="isTest = true;">
+            <mat-option (click)="isTest = true;">
               -- Create New Category --
             </mat-option>
-            <mat-option *ngFor="let category of categories" [value]="category.Title">
-              {{ category.Title }}
+            <mat-option *ngFor="let category of categories" [value]="category.CategoryID">
+              <span style="font-weight: 600">{{ category.Title }}</span>
             </mat-option>
           </mat-select>
           <mat-hint>Please select a category, or create a new one.</mat-hint>
@@ -64,19 +64,18 @@
 
       <!-- <mat-divider style="margin-top: 16px; border-width: 4px;"></mat-divider> -->
 
-      <div class="mat-elevation-z2" style="padding: 10px; background-color: #fafafa">
-        <span style="line-height: 16px; font-size: 14px; font-weight: 500; font-family: Roboto,'Helvetica Neue',sans-serif; color: rgba(0,0,0,.54);" mat-subheader>Add Item:</span>
+      <div class="mat-elevation-z2" style="padding: 10px; background-color: #fafafa;">
+        <span style="line-height: 16px; font-size: 14px; font-weight: 500; font-family: Roboto,'Helvetica Neue',sans-serif; color: rgba(0,0,0,.54);" mat-subheader>{{editMode ? 'Edit' : 'Add'}} Item: {{currentIndex > -1 && editMode ? currentIndex+1 : ''}}</span>
         <mat-form-field style="margin-bottom: 12px; flex: 9; width: 100%;" appearance="outline">
           <mat-label>Item</mat-label>
-          <input matInput placeholder="Enter your item">
+          <input [(ngModel)]="listItem.Title" [ngModelOptions]="{standalone: true}" matInput placeholder="Enter your item">
 
           <mat-hint>Please enter item</mat-hint>
         </mat-form-field>
         <div style="width: 100%; display: flex;">
           <mat-form-field style="margin-bottom: 12px; flex: 9 " appearance="outline">
             <mat-label>Description</mat-label>
-            <input matInput placeholder="Enter description">
-
+            <input [(ngModel)]="listItem.Description" [ngModelOptions]="{standalone: true}" matInput placeholder="Enter description">
             <mat-hint>Please enter description</mat-hint>
           </mat-form-field>
 
@@ -88,39 +87,40 @@
                 type="file"
                 accept="image/*"
                 (change)="processFile(imageInput)">
-          <button color="primary" mat-stroked-button (click)="addNewLine();" matTooltip="Add item" style="margin-top: 4px; margin-left: 10px; height: 51px;">
+          <button *ngIf="!editMode" color="primary" [disabled]="!listItem.Title" mat-stroked-button (click)="addNewLine();" matTooltip="Add" style="margin-top: 4px; margin-left: 10px; height: 51px;">
             <mat-icon class="mat-18">add</mat-icon>
+          </button>
+          <button *ngIf="editMode" (click)="onSaveItemEdit();" color="primary" mat-stroked-button matTooltip="Save" style="margin-top: 4px; margin-left: 10px; height: 51px;">
+            <mat-icon class="mat-18">save</mat-icon>
+          </button>
+          <button *ngIf="editMode" (click)="clearEditMode();" color="primary" mat-stroked-button matTooltip="Cancel" style="margin-top: 4px; margin-left: 10px; height: 51px;">
+            <mat-icon class="mat-18">cancel</mat-icon>
           </button>
         </div>
       </div>
     </form>
 
     <!-- <mat-divider style="border-width: 4px;"></mat-divider> -->
-    <div>
-
+    <div style="padding-bottom: 20px;">
       <mat-nav-list>
         <h4 mat-subheader>Items:</h4>
-        <mat-list-item class="item-view">
-          <!-- <a matLine href="...">asdf</a> -->
-          <span>1</span>
+        <mat-list-item class="item-view" *ngFor="let item of listItems; let i = index;" (click)="onClickListItem(item, i)" [ngStyle]="{'background-color': currentIndex === i ? '#F0F0F0': '#FFFFFF'}">
+          <span>{{ i + 1 }}</span>
           <span style="display: flex;">
-            <a href="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg" target="_blank">
+            <!-- <a href="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg" target="_blank"> -->
+            <a href={{item.ImageURL}} target="_blank">
               <img style="max-width: 80px; max-height: 80px;" src="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg">
             </a>
-
           </span>
-
-
-          <span style="font-weight: 500">Camera</span>
-          <span style="color: #999">Make sure it's the blue one.</span>
+          <span style="font-weight: 500">{{ item.Title }}</span>
+          <span style="color: #999">{{ item.Description }}</span>
           <span class="spacer"></span>
-          <button color="warn" mat-icon-button matTooltip="Remove Item">
+          <button color="warn" (click)="onRemoveListItem(i)" mat-icon-button matTooltip="Remove Item">
               <mat-icon>close</mat-icon>
           </button>
         </mat-list-item>
 
-        <mat-list-item class="item-view">
-          <!-- <a matLine href="...">asdf</a> -->
+        <!-- <mat-list-item class="item-view">
           <span>2</span>
           <span style="display: flex;"><img style="max-width: 80px; max-height: 80px;" src="https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fs3-ap-northeast-1.amazonaws.com%2Fpsh-ex-ftnikkei-3937bb4%2Fimages%2F5%2F1%2F8%2F0%2F20370815-2-eng-GB%2FCropped-1555509431RTS22VSA.jpg?source=nar-cms"></span>
           <span style="font-weight: 500">Camera</span>
@@ -129,7 +129,7 @@
           <button color="warn" mat-icon-button matTooltip="Remove Item">
             <mat-icon>close</mat-icon>
         </button>
-        </mat-list-item>
+        </mat-list-item> -->
       </mat-nav-list>
 
     </div>

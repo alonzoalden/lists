@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './core/interceptors/http.token.interceptor';
+import { ViewListComponent } from './view-list/view-list.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { HttpTokenInterceptor } from './core/interceptors/http.token.interceptor
     HeaderComponent,
     EditListComponent,
     DashboardComponent,
+    ViewListComponent,
   ],
   imports: [
     BrowserModule,

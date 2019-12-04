@@ -27,11 +27,11 @@
                           (closed)="panelOpenState = false">
         <mat-expansion-panel-header *ngIf="category.Title" style="padding-left: 16px;">
           <mat-panel-title class="left-panel-header">
-            {{ category.Title }}
+            <span style="font-weight: 600">{{ category.Title }}</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-action-list>
-            <mat-list-item *ngFor="let list of category.Lists">
+            <mat-list-item  *ngFor="let list of category.Lists">
               <button class="left-panel-header"> {{ list.Title }} </button>
             </mat-list-item>
           </mat-action-list>
@@ -40,7 +40,10 @@
 
       <mat-action-list>
         <mat-list-item *ngFor="let list of uncategorized">
-          <button class="left-panel-header"> {{ list.Title }} </button>
+          <div style="width: 100%;display: flex; justify-content: space-between;">
+            <button class="left-panel-header"> {{ list.Title }} </button>
+            <!-- <mat-icon matSuffix matTooltip="Choose from list">view_list</mat-icon> -->
+          </div>
         </mat-list-item>
       </mat-action-list>
     </div>
