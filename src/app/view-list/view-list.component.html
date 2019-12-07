@@ -1,37 +1,30 @@
-<!-- <mat-selection-list #shoes>
-    <mat-list-option >
-      shoe
-    </mat-list-option>
-  </mat-selection-list> -->
-<!-- <mat-list>
-  <mat-list-item>
-    <mat-icon matListIcon>folder</mat-icon>
-    <h3 matLine> hey </h3>
-    <p matLine>
-      <span> sub </span>
-      <span class="demo-2"> --content</span>
-    </p>
-  </mat-list-item>
-</mat-list> -->
+
 <div class="wrapper" style="border-radius: 14px;">
-    <mat-toolbar color="primary" class="mat-elevation-z2" style="border-radius: 2px 2px 0 0;" >
-      <span>List Title</span>
-      <span class="spacer"></span>
+  <mat-toolbar color="primary" class="mat-elevation-z2" style="border-radius: 2px 2px 0 0;" >
+    <span>{{ list?.Title }}</span>
+    <span class="spacer"></span>
 
-      <button mat-icon-button matTooltip="More Options" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon class="mat-18">more_horiz</mat-icon>
+    <button mat-icon-button matTooltip="More Options" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon class="mat-18">more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>email</mat-icon>
+        <span>Send via Email</span>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>email</mat-icon>
-          <span>Send via Email</span>
-        </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item>
-          <mat-icon>delete</mat-icon>
-          <span>Remove</span>
-        </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Remove</span>
+      </button>
 
-      </mat-menu>
+    </mat-menu>
 
-    </mat-toolbar>
+  </mat-toolbar>
+  <div class="mat-elevation-z2" style="border-radius: 0 0 2px 2px; padding: 10px; background-color: #fff;">
+    <mat-selection-list #shoes style="padding-bottom: 10px;">
+      <mat-list-option *ngFor="let item of list?.Items">
+        {{item.Title}} {{item.Description}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>

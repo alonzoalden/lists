@@ -40,8 +40,8 @@
         <mat-form-field style="margin-bottom: 12px;" *ngIf="!isTest" appearance="outline">
           <mat-label>Category</mat-label>
           <mat-select name="Category" [(ngModel)]="list.CategoryID">
-            <mat-option value="None">
-              -- None --
+            <mat-option [value]=0>
+              <span style="font-weight: 600">-- None -- </span>
             </mat-option>
             <mat-option (click)="isTest = true;">
               -- Create New Category --
@@ -90,7 +90,7 @@
           <button *ngIf="!editMode" color="primary" [disabled]="!listItem.Title" mat-stroked-button (click)="addNewLine();" matTooltip="Add" style="margin-top: 4px; margin-left: 10px; height: 51px;">
             <mat-icon class="mat-18">add</mat-icon>
           </button>
-          <button *ngIf="editMode" (click)="onSaveItemEdit();" color="primary" mat-stroked-button matTooltip="Save" style="margin-top: 4px; margin-left: 10px; height: 51px;">
+          <button *ngIf="editMode" (click)="onAddItemEdit();" color="primary" mat-stroked-button matTooltip="Save" style="margin-top: 4px; margin-left: 10px; height: 51px;">
             <mat-icon class="mat-18">save</mat-icon>
           </button>
           <button *ngIf="editMode" (click)="clearEditMode();" color="primary" mat-stroked-button matTooltip="Cancel" style="margin-top: 4px; margin-left: 10px; height: 51px;">
@@ -104,7 +104,7 @@
     <div style="padding-bottom: 20px;">
       <mat-nav-list>
         <h4 mat-subheader>Items:</h4>
-        <mat-list-item class="item-view" *ngFor="let item of listItems; let i = index;" (click)="onClickListItem(item, i)" [ngStyle]="{'background-color': currentIndex === i ? '#F0F0F0': '#FFFFFF'}">
+        <mat-list-item class="item-view" *ngFor="let item of list.Items; let i = index;" (click)="onClickListItem(item, i)" [ngStyle]="{'background-color': currentIndex === i ? '#F0F0F0': '#FFFFFF'}">
           <span>{{ i + 1 }}</span>
           <span style="display: flex;">
             <!-- <a href="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg" target="_blank"> -->

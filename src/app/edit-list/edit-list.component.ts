@@ -2,6 +2,8 @@ import { List, Category, ListItem } from './../core/models/list.component';
 import { ListService } from './../core/services/list.service';
 import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../core/services/image.service';
+import { Router } from '@angular/router';
+
 class ImageSnippet {
   pending = false;
   status = 'init';
@@ -18,14 +20,15 @@ export class EditListComponent implements OnInit {
   selectedFile: any;
   list: List;
   categories: Category[];
-  listItems: ListItem[] = [];
   listItem: ListItem;
   editMode: boolean;
   currentIndex: number;
+  pendingSave: boolean;
 
   constructor(
     private imageService: ImageService,
-    private listService: ListService
+    private listService: ListService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class EditListComponent implements OnInit {
     });
   }
   addNewLine() {
-    this.listItems.push(this.listItem);
+    this.list.Items.push(this.listItem);
     this.listItem = this.addNewItem();
   }
   processFile(imageInput: any) {
@@ -47,9 +50,7 @@ export class EditListComponent implements OnInit {
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
-
       this.selectedFile = new ImageSnippet(event.target.result, file);
-
       this.imageService.uploadImage(this.selectedFile.file).subscribe(
         (res) => {
         },
@@ -66,12 +67,28 @@ export class EditListComponent implements OnInit {
     if (!this.list.CategoryTitle) {
       this.list.CategoryTitle = 'None';
     }
-    this.listService.addListing(this.list).subscribe();
+    this.pendingSave = true;
+    this.listService.addListing(this.list).subscribe(data => {
+      this.pendingSave = false;
+      this.router.navigate(['view', data.ListID], { state: { data } });
+
+      this.listService.currentListings.subscribe(categories => {
+        const foundCategory = categories.find(category => category.CategoryID === data.CategoryID);
+        if (foundCategory) {
+          foundCategory.Lists.unshift(data);
+        } else {
+          categories.unshift(new Category(data.CategoryID, data.Title, data.Description, data.ImageURL, data.Created, data.Updated, [data]))
+        }
+
+      });
+
+    });
   }
   onRemoveListItem(i) {
     const confirmation = confirm('Are you sure you want to remove this item?');
     if (confirmation) {
-      this.listItems.splice(i, 1);
+      this.list.Items.splice(i, 1);
+      this.currentIndex = null;
     }
   }
   onClickListItem(item, i) {
@@ -81,8 +98,8 @@ export class EditListComponent implements OnInit {
     this.listItem = copy;
     this.editMode = true;
   }
-  onSaveItemEdit() {
-    this.listItems[this.currentIndex] = this.listItem;
+  onAddItemEdit() {
+    this.list.Items[this.currentIndex] = this.listItem;
     this.clearEditMode();
   }
   clearEditMode() {

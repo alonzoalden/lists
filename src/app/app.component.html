@@ -39,9 +39,9 @@
       </mat-expansion-panel>
 
       <mat-action-list>
-        <mat-list-item *ngFor="let list of uncategorized">
+        <mat-list-item *ngFor="let list of uncategorized" [routerLink]="['view', list.ListID]" >
           <div style="width: 100%;display: flex; justify-content: space-between;">
-            <button class="left-panel-header"> {{ list.Title }} </button>
+            <button [routerLink]="['view', list.ListID]" class="left-panel-header"> {{ list.Title }} </button>
             <!-- <mat-icon matSuffix matTooltip="Choose from list">view_list</mat-icon> -->
           </div>
         </mat-list-item>
