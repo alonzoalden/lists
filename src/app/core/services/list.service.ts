@@ -9,7 +9,7 @@ import { map, distinctUntilChanged } from 'rxjs/operators';
 })
 export class ListService {
   private currentListingsSubject = new BehaviorSubject<Category[]>([]);
-  public currentListings = this.currentListingsSubject.asObservable().pipe(distinctUntilChanged());
+  public currentListings = this.currentListingsSubject.asObservable();
   constructor(private http: ApiService) { }
 
   public getListings(): Subscription {
@@ -26,7 +26,10 @@ export class ListService {
     return this.http.get('/api/list/' + id)
       .pipe(map(data => data));
   }
-
+  public updateSelectedSubject(categories: Category[]): void {
+    console.log(categories);
+    this.currentListingsSubject.next(categories);
+}
 
 
 }

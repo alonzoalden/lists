@@ -74,10 +74,22 @@ export class EditListComponent implements OnInit {
 
       this.listService.currentListings.subscribe(categories => {
         const foundCategory = categories.find(category => category.CategoryID === data.CategoryID);
+        console.log(foundCategory);
         if (foundCategory) {
+          console.log('here1')
           foundCategory.Lists.unshift(data);
         } else {
-          categories.unshift(new Category(data.CategoryID, data.Title, data.Description, data.ImageURL, data.Created, data.Updated, [data]))
+          console.log('here2')
+          categories.unshift(new Category(
+            data.CategoryID,
+            data.Title,
+            data.Description,
+            data.ImageURL,
+            data.Created,
+            data.Updated,
+            [data]
+          ));
+          this.listService.updateSelectedSubject(categories);
         }
 
       });
