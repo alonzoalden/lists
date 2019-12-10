@@ -22,14 +22,18 @@ export class ListService {
       .pipe(map(data => data));
   }
 
+  public deleteListing(id: number): Observable<List> {
+    return this.http.delete('/api/list/' + id)
+      .pipe(map(data => data));
+  }
+
   public getListItems(id: number): Observable<ListItem[]> {
     return this.http.get('/api/list/' + id)
       .pipe(map(data => data));
   }
   public updateSelectedSubject(categories: Category[]): void {
-    console.log(categories);
     this.currentListingsSubject.next(categories);
-}
+  }
 
 
 }

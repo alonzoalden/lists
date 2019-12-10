@@ -16,7 +16,8 @@ export class ViewListComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     private listService: ListService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -28,20 +29,27 @@ export class ViewListComponent implements OnInit {
         this.list = history.state.data;
       } else {
         // if data doesn't get passed, find list item in main collection, and make api call to get associated list items
-        this.listService.currentListings.subscribe(data => {
-          if (!data.length) {
+        this.listService.currentListings.subscribe(categories => {
+          if (!categories.length) {
             return;
           }
-          const categories = data;
-          const foundCategory = categories.find(category => category.Lists.find(list => list.ListID === this.listID));
+          const foundCategory = categories.find(category => category.Lists && category.Lists.find(list => list.ListID === this.listID));
           this.list = foundCategory && foundCategory.Lists.find(list => list.ListID === this.listID);
-          if (!this.list.Items) {
+          if (!this.list) {
+            return this.router.navigate(['']);
+          }
+          if (this.list && !this.list.Items) {
             this.listService.getListItems(this.listID).subscribe(items => {
               this.list.Items = items;
             });
           }
         });
       }
+    });
+  }
+  deleteListing(id) {
+    this.listService.deleteListing(id).subscribe(() => {
+      this.listService.getListings();
     });
   }
 }

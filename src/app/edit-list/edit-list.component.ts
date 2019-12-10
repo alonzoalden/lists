@@ -37,7 +37,9 @@ export class EditListComponent implements OnInit {
     this.listService.currentListings.subscribe(data => {
       const newData = [...data];
       const index = newData.findIndex(items => items.Title === 'None');
-      newData.splice(index, 1);
+      if (index > -1) {
+        newData.splice(index, 1);
+      }
       this.categories = newData;
     });
   }
@@ -73,16 +75,19 @@ export class EditListComponent implements OnInit {
       this.router.navigate(['view', data.ListID], { state: { data } });
 
       this.listService.currentListings.subscribe(categories => {
-        const foundCategory = categories.find(category => category.CategoryID === data.CategoryID);
-        console.log(foundCategory);
+
+        const foundCategory = categories.length && categories.find(category => category.CategoryID === data.CategoryID);
         if (foundCategory) {
-          console.log('here1')
-          foundCategory.Lists.unshift(data);
+          if (!foundCategory.Lists) {
+            foundCategory.Lists = [];
+          }
+          if (!foundCategory.Lists.includes(data)) {
+            foundCategory.Lists.unshift(data);
+          }
         } else {
-          console.log('here2')
           categories.unshift(new Category(
             data.CategoryID,
-            data.Title,
+            data.CategoryTitle,
             data.Description,
             data.ImageURL,
             data.Created,
@@ -121,5 +126,10 @@ export class EditListComponent implements OnInit {
   }
   addNewItem() {
     return new ListItem(this.list.ListID, null, null, null, null, null, null);
+  }
+  deleteListing(id) {
+    this.listService.deleteListing(id).subscribe(() => {
+      this.listService.getListings();
+    });
   }
 }

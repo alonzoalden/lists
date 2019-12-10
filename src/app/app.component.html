@@ -31,7 +31,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-action-list>
-            <mat-list-item  *ngFor="let list of category.Lists">
+            <mat-list-item [routerLink]="['view', list.ListID]" *ngFor="let list of category.Lists">
               <button class="left-panel-header"> {{ list.Title }} </button>
             </mat-list-item>
           </mat-action-list>

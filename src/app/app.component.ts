@@ -38,14 +38,13 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.listService.getListings();
     this.listService.currentListings.subscribe(data => {
-      console.log('data', data)
       if (data.length) {
-        const newData = [...data];
-        const index = newData.findIndex((item) => item.Title === 'None');
-        if (index) {
-          this.uncategorized = newData.splice(index, 1)[0].Lists;
+        const dataRemoveNoneCategory = [...data];
+        const index = dataRemoveNoneCategory.findIndex((item) => item.Title === 'None');
+        if (index > -1) {
+          this.uncategorized = dataRemoveNoneCategory.splice(index, 1)[0].Lists;
         }
-        this.categories = newData;
+        this.categories = dataRemoveNoneCategory;
       }
     });
   }
