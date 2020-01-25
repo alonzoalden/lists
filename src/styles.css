@@ -14,9 +14,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .item-view span {
   padding: 0 10px;
   font-weight: 300;
-  max-width: 123px;
   overflow-wrap: break-word;
 }
 .item-view .mat-list-item-content {
   padding: 10px !important;
+  width: 100%;
 }

@@ -26,71 +26,123 @@
     </mat-menu>
 
   </mat-toolbar>
-  <div class="mat-elevation-z2" style="border-radius: 0 0 2px 2px ; padding: 0 16px 16px 16px; background-color: #fff;">
-    <form class="example-form" style="padding: 16px 0px 0px 0px;">
-      <div style="display: flex;">
-        <div style="display: flex; flex-direction: column; overflow: hidden; flex: 3; margin-right: 20px;">
-          <span style="line-height: 16px; padding-left: 10px; font-size: 14px; font-weight: 500; font-family: Roboto,'Helvetica Neue',sans-serif; color: rgba(0,0,0,.54);" mat-subheader>Description:</span>
-          <mat-form-field style="margin-bottom: 12px;" appearance="outline">
-            <mat-label >Title</mat-label>
-            <input name="Title" [(ngModel)]="list.Title" required matInput placeholder="Enter title">
-            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-            <mat-hint>Please enter a title for your list</mat-hint>
-          </mat-form-field>
-
-          <ng-container>
-            <mat-form-field style="margin-bottom: 12px;" *ngIf="!isTest" appearance="outline">
-              <mat-label>Category</mat-label>
-              <mat-select name="Category" [(ngModel)]="list.CategoryID">
-                <mat-option [value]=0>
-                  <span style="font-weight: 600">-- None -- </span>
-                </mat-option>
-                <mat-option (click)="isTest = true;">
-                  -- Create New Category --
-                </mat-option>
-                <mat-option *ngFor="let category of categories" [value]="category.CategoryID">
-                  <span style="font-weight: 600">{{ category.Title }}</span>
-                </mat-option>
-              </mat-select>
-              <mat-hint>Please select a category, or create a new one.</mat-hint>
+  <div style="border: solid 1px rgba(0,0,0,.12); border-radius: 0 0 2px 2px;  background-color: #fff; ">
+    <form class="example-form">
+      <!-- <div style="display: flex;"> -->
+        <!-- <div style="flex: 1"> -->
+          <div style="display: flex; flex-direction: column; overflow: hidden; padding: 16px 16px 16px 16px">
+            <span style="line-height: 16px; padding-left: 10px; font-size: 14px; font-weight: 500; font-family: Roboto,'Helvetica Neue',sans-serif; color: rgba(0,0,0,.54);" mat-subheader>Description:</span>
+            <mat-form-field style="margin-bottom: 12px;" appearance="outline">
+              <mat-label >Title</mat-label>
+              <input name="Title" [(ngModel)]="list.Title" required matInput placeholder="Enter title">
+              <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+              <mat-hint>Please enter a title for your list</mat-hint>
             </mat-form-field>
 
-            <mat-form-field style="margin-bottom: 12px;" *ngIf="isTest"  appearance="outline">
-              <mat-label>New Category</mat-label>
-              <input name="Category" [(ngModel)]="list.CategoryTitle" matInput placeholder="Enter Category">
-              <mat-icon matSuffix (click)="isTest = false;" matTooltip="Choose from list">undo</mat-icon>
-              <!-- <mat-hint>Please enter a title to create a new category, or you may select an existing one.</mat-hint> -->
-              <mat-hint>Enter a title to create a new category.</mat-hint>
-            </mat-form-field>
-          </ng-container>
+            <ng-container>
+              <mat-form-field style="margin-bottom: 12px;" *ngIf="!isTest" appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select name="Category" [(ngModel)]="list.CategoryID">
+                  <mat-option [value]=0>
+                    <span style="font-weight: 600">-- None -- </span>
+                  </mat-option>
+                  <mat-option (click)="isTest = true;">
+                    -- Create New Category --
+                  </mat-option>
+                  <mat-option *ngFor="let category of categories" [value]="category.CategoryID">
+                    <span style="font-weight: 600">{{ category.Title }}</span>
+                  </mat-option>
+                </mat-select>
+                <mat-hint>Please select a category, or create a new one.</mat-hint>
+              </mat-form-field>
 
-          <div style="display:flex; justify-content: space-between; padding-bottom: 20px;">
-            <div style="flex: 3; ">
-              <mat-nav-list>
-                <h4 mat-subheader>Items:</h4>
-                <mat-list-item style="flex: 3 !important;"class="item-view" *ngFor="let item of list.Items; let i = index;" (click)="onClickListItem(item, i)" [ngStyle]="{'background-color': currentIndex === i ? '#F0F0F0': '#FFFFFF'}">
-                  <span>{{ i + 1 }}</span>
-                  <span style="display: flex;">
-                    <!-- <a href="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg" target="_blank"> -->
-                    <a href={{item.ImageURL}} target="_blank">
-                      <img style="max-width: 80px; max-height: 80px;" src="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg">
-                    </a>
-                  </span>
-                  <span style="font-weight: 500">{{ item.Title }}</span>
-                  <span style="color: #999">{{ item.Description }}</span>
-                  <span class="spacer"></span>
-                  <!-- <button color="warn" (click)="onRemoveListItem(i)" mat-icon-button matTooltip="Remove Item">
-                      <mat-icon>close</mat-icon>
-                  </button> -->
-                </mat-list-item>
-      
+              <mat-form-field style="margin-bottom: 12px;" *ngIf="isTest"  appearance="outline">
+                <mat-label>New Category</mat-label>
+                <input name="Category" [(ngModel)]="list.CategoryTitle" matInput placeholder="Enter Category">
+                <mat-icon matSuffix (click)="isTest = false;" matTooltip="Choose from list">undo</mat-icon>
+                <!-- <mat-hint>Please enter a title to create a new category, or you may select an existing one.</mat-hint> -->
+                <mat-hint>Enter a title to create a new category.</mat-hint>
+              </mat-form-field>
+            </ng-container>
+          </div>
+          <mat-divider></mat-divider>
+          <div style="display:flex;">
+              <div class="mat-elevation-z1" style="height: fit-content; max-width: 233px;">
+                <div style="flex: 1; padding: 16px; background-color: #f9f9f9;">
+                  <span style="line-height: 16px; font-size: 14px; font-weight: 500; font-family: Roboto,'Helvetica Neue',sans-serif; color: rgba(0,0,0,.54);" mat-subheader>{{editMode ? 'Edit' : 'Add'}} Item: {{currentIndex > -1 && editMode ? currentIndex+1 : ''}}</span>
+                  <mat-form-field style="margin-bottom: 12px; " appearance="outline">
+                    <mat-label>Item</mat-label>
+                    <input [(ngModel)]="listItem.Title" [ngModelOptions]="{standalone: true}" matInput placeholder="Enter your item">
+        
+                    <mat-hint>Please enter item</mat-hint>
+                  </mat-form-field>
+                  <div>
+                    <mat-form-field style="margin-bottom: 12px; " appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <input [(ngModel)]="listItem.Description" [ngModelOptions]="{standalone: true}" matInput placeholder="Enter description">
+                      <mat-hint>Please enter description</mat-hint>
+                    </mat-form-field>
+                    <div style="display: flex; align-items: center;">
+                      <button (click)="imageInput.click()" mat-stroked-button matTooltip="Add photo" style="height: 51px;">
+                        <mat-icon matSuffix>add_a_photo</mat-icon>
+                      </button>
+                      <div style="flex: 2; text-align: center;">
+                        <img alt="img" [matTooltip]="img" style="width: 64px;" src="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg">
+                      </div>
+                      <input #imageInput
+                            [hidden]=true
+                            type="file"
+                            accept="image/*"
+                            (change)="processFile(imageInput)">
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+                <div style=" height: 40px; display: flex; justify-content: flex-end; align-items: center; background-color: #fafafa; padding: 10px 16px">
+                  <button *ngIf="!editMode" color="primary" [disabled]="!listItem.Title" mat-stroked-button (click)="addNewLine();" matTooltip="Add" >
+                    <mat-icon class="mat-18">add</mat-icon>
+                  </button>
+                  <button *ngIf="editMode" (click)="onAddItemEdit();" color="primary" mat-stroked-button matTooltip="Save" style="margin-right: 5px;">
+                    <mat-icon class="mat-18">save</mat-icon>
+                  </button>
+                  <button *ngIf="editMode" color="warn" mat-stroked-button matTooltip="Remove" style="margin-right: 5px;">
+                    <mat-icon class="mat-18">delete</mat-icon>
+                  </button>
+                  <button *ngIf="editMode" (click)="clearEditMode();" color="basic" mat-stroked-button matTooltip="Cancel">
+                    <mat-icon class="mat-18">cancel</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <mat-nav-list style="background-color: #fcfcfc; width: 100%;">
+                <div style="height: 100%;">
+                  <div style="border-left: 1px solid #eee;">
+                    <h4  mat-subheader>Items:</h4>
+                  </div>
+                  <div style="height: calc(100% - 41px); overflow: scroll; border: solid 1px rgba(0,0,0,.12); border-right: none; background-color: #fff;">
+                    <mat-list-item class="item-view" *ngFor="let item of list.Items; let i = index;" (click)="onClickListItem(item, i)" [ngStyle]="{'background-color': currentIndex === i ? '#F0F0F0': '#FFFFFF'}">
+                      <span>{{ i + 1 }}</span>
+                      <span style="display: flex; align-items: center;">
+                        <!-- <a href="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg" target="_blank"> -->
+                        <a style="display: flex; align-items: center;" href={{item.ImageURL}} target="_blank">
+                          <img style="max-width: 60px; max-height: 60px;" src="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg">
+                        </a>
+                      </span>
+                      <span style="font-weight: 500">{{ item.Title }}</span>
+                      <span style="overflow: hidden; display: flex; max-height: 45px; color: #999">{{ item.Description }}</span>
+                      <span class="spacer"></span>
+                      <!-- <button color="warn" (click)="onRemoveListItem(i)" mat-icon-button matTooltip="Remove Item">
+                          <mat-icon>close</mat-icon>
+                      </button> -->
+                    </mat-list-item>
+                  </div>
+                </div>
               </mat-nav-list>
       
-            </div>
       
             
-          </div>
-        </div>
+          <!-- </div>
+        </div> -->
       <!-- <div  class="mat-elevation-z3" style="height: fit-content; width: 223px">
         <div style="flex: 1;  padding: 0 10px 10px 10px; background-color: #f9f9f9;">
           <span style="line-height: 16px; font-size: 14px; font-weight: 500; font-family: Roboto,'Helvetica Neue',sans-serif; color: rgba(0,0,0,.54);" mat-subheader>{{editMode ? 'Edit' : 'Add'}} Item: {{currentIndex > -1 && editMode ? currentIndex+1 : ''}}</span>
@@ -144,14 +196,14 @@
       
   </form>
   </div>
-<div style="width: 100%; text-align: right;">
-  <button color="warn" style="margin-top: 10px;" mat-button (click)="addNewLine();" matTooltip="Delete List" >
-    <mat-icon class="mat-18">delete_forever</mat-icon>
-  </button>
-</div>
+  <div style="width: 100%; text-align: right;">
+    <button color="warn" style="margin-top: 10px;" mat-button (click)="addNewLine();" matTooltip="Delete List" >
+      <mat-icon class="mat-18">delete_forever</mat-icon>
+    </button>
+  </div>
 </div>
 
-<div  class="mat-elevation-z3" style="height: fit-content; width: 100%; position: absolute; bottom: 0; ">
+<!-- <div  class="mat-elevation-z3" style="height: fit-content; width: 100%; position: absolute; bottom: 0; ">
   <div style="flex: 1;  padding: 0 10px 10px 10px; background-color: #f9f9f9;">
     <span style="line-height: 16px; font-size: 14px; font-weight: 500; font-family: Roboto,'Helvetica Neue',sans-serif; color: rgba(0,0,0,.54);" mat-subheader>{{editMode ? 'Edit' : 'Add'}} Item: {{currentIndex > -1 && editMode ? currentIndex+1 : ''}}</span>
     <mat-form-field style="margin-bottom: 12px; flex: 9; width: 100%;" appearance="outline">
@@ -196,5 +248,5 @@
     <button *ngIf="editMode" (click)="clearEditMode();" color="basic" mat-stroked-button matTooltip="Cancel">
       <mat-icon class="mat-18">cancel</mat-icon>
     </button>
-  </div>
-</div>
+  </div> 
+</div> -->
