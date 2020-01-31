@@ -8,9 +8,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .spacer {
   flex: 1 1 auto;
 }
+.full-page-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.full-page-layout > *:last-child {
+  height: inherit;
+}
 
-
-
+.item-view {
+  border-bottom: 1px solid #f3f3f4;
+}
 .item-view span {
   padding: 0 10px;
   font-weight: 300;

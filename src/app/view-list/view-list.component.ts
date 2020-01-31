@@ -46,6 +46,7 @@ export class ViewListComponent implements OnInit {
         });
       }
     });
+    
   }
   deleteListing(id) {
     this.listService.deleteListing(id).subscribe(() => {

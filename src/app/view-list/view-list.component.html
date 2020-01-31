@@ -13,6 +13,10 @@
         <span>Send via Email</span>
       </button>
       <mat-divider></mat-divider>
+      <button [routerLink]="['', 'edit', list?.ListID]" mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
       <button (click)="deleteListing(list.ListID)" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>Remove</span>

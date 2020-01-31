@@ -1,0 +1,22 @@
+.form-content {
+    padding: 0;
+    border-radius: 0px; 
+}
+.form-content .full-row {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 24px;
+}
+.form-content .full-row .full-row-body {
+    display: flex;
+    width: 100%;
+}
+
+.header-label {
+    line-height: 16px;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Roboto,'Helvetica Neue',sans-serif;
+    color: rgba(0,0,0,.54);
+}

@@ -2,7 +2,7 @@ import { List, Category, ListItem } from './../core/models/list.component';
 import { ListService } from './../core/services/list.service';
 import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../core/services/image.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 class ImageSnippet {
   pending = false;
@@ -24,8 +24,9 @@ export class EditListComponent implements OnInit {
   editMode: boolean;
   currentIndex: number;
   pendingSave: boolean;
-
+  listID: number;
   constructor(
+    private route: ActivatedRoute,
     private imageService: ImageService,
     private listService: ListService,
     private router: Router
@@ -34,13 +35,33 @@ export class EditListComponent implements OnInit {
   ngOnInit() {
     this.list = new List(null, null, null, null, null, null, null, null, []);
     this.listItem = this.addNewItem();
-    this.listService.currentListings.subscribe(data => {
-      const newData = [...data];
-      const index = newData.findIndex(items => items.Title === 'None');
-      if (index > -1) {
-        newData.splice(index, 1);
-      }
-      this.categories = newData;
+    this.route.paramMap.subscribe((param: any) => {
+      this.listID = Number(param.params.id);
+
+
+      this.listService.currentListings.subscribe(data => {
+        const newData = [...data];
+        const index = newData.findIndex(items => items.Title === 'None');
+        if (index > -1) {
+          newData.splice(index, 1);
+        }
+        this.categories = newData;
+        if (this.listID) {
+          const foundCategory = data.find(category => category.Lists && category.Lists.find(list => list.ListID === this.listID));
+          this.list = foundCategory && foundCategory.Lists.find(list => list.ListID === this.listID);
+          if (!this.list) {
+            return this.router.navigate(['']);
+          }
+          if (this.list && !this.list.Items) {
+            this.listService.getListItems(this.listID).subscribe(items => {
+              this.list.Items = items;
+            });
+          }
+        }
+
+      });
+
+
     });
   }
   addNewLine() {
