@@ -4,8 +4,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ListService } from './core/services/list.service';
-// import { DomSanitizer } from '@angular/platform-browser';
-// import { MatIconRegistry } from '@angular/material/icon';
+import { SidenavService } from './core/services/sidenav.service';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: variable-name
   private _mobileQueryListener: () => void;
   constructor(
+    private sidenavService: SidenavService,
     private listService: ListService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher
@@ -36,6 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
+    this.sidenavService.registerSideNav(this.snav);
     this.listService.getListings();
     this.listService.currentListings.subscribe(data => {
       if (data.length) {

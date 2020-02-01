@@ -4,7 +4,7 @@
   <mat-sidenav-container style="height: 100%;">
     <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" opened class="mat-elevation-z2" style="width: 33%; min-width: 280px;" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" #snav>
       <mat-action-list style="height: 79px; border-bottom: 1px solid #eee;" color="primary">
-        <button style="width: 100%; height: 100%" mat-button color="primary" [routerLink]="['edit']">
+        <button style="width: 100%; height: 100%" mat-button color="primary" [routerLink]="['edit']" (click)="snav.toggle()">
           <div class="left-panel-header-main valign-center" style="padding: 10px;">
             <mat-icon aria-hidden="false">add_circle</mat-icon>
             <span class="left-panel-title">New List</span>
@@ -32,7 +32,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-action-list>
-              <mat-list-item [routerLink]="['view', list.ListID]" *ngFor="let list of category.Lists">
+              <mat-list-item (click)="snav.toggle()" [routerLink]="['view', list.ListID]" *ngFor="let list of category.Lists">
                 <button class="left-panel-header"> {{ list.Title }} </button>
               </mat-list-item>
             </mat-action-list>
@@ -40,7 +40,7 @@
         </mat-expansion-panel>
 
         <mat-action-list>
-          <mat-list-item *ngFor="let list of uncategorized" [routerLink]="['view', list.ListID]" >
+          <mat-list-item *ngFor="let list of uncategorized" [routerLink]="['view', list.ListID]" (click)="snav.toggle()">
             <div style="width: 100%;display: flex; justify-content: space-between;">
               <button [routerLink]="['view', list.ListID]" class="left-panel-header"> {{ list.Title }} </button>
               <!-- <mat-icon matSuffix matTooltip="Choose from list">view_list</mat-icon> -->

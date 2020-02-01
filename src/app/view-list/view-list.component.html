@@ -1,6 +1,6 @@
 
-<div class="wrapper" style="border-radius: 14px;">
-  <mat-toolbar color="primary" class="mat-elevation-z2" style="border-radius: 2px 2px 0 0;" >
+<div>
+  <mat-toolbar color="primary" class="mat-elevation-z2" style="z-index: 2; min-height: 80px;">
     <span>{{ list?.Title }}</span>
     <span class="spacer"></span>
 
@@ -27,8 +27,23 @@
   </mat-toolbar>
   <div class="mat-elevation-z2" style="border-radius: 0 0 2px 2px; padding: 10px; background-color: #fff;">
     <mat-selection-list #shoes style="padding-bottom: 10px;">
-      <mat-list-option *ngFor="let item of list?.Items">
-        {{item.Title}} {{item.Description}}
-      </mat-list-option>
+        <mat-list-option class="item-view" style="border-bottom: 0;" *ngFor="let item of list.Items; let i = index;" (click)="onClickListItem(item, i)" [ngStyle]="{'background-color': currentIndex === i ? '#F0F0F0': '#FFFFFF'}">
+          <div style="display: flex; align-items: center;">
+            <span>{{ i + 1 }}</span>
+            <span class="item-view-image">
+              <!-- <a href="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg" target="_blank"> -->
+              <a href={{item.ImageURL}} target="_blank">
+                <img src="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg">
+              </a>
+            </span>
+            <span>{{ item.Title }}</span>
+            <span class="description">{{ item.Description }}</span>
+            <span class="spacer"></span>
+          <!-- <button color="warn" (click)="onRemoveListItem(i)" mat-icon-button matTooltip="Remove Item">
+              <mat-icon>close</mat-icon>
+          </button> -->
+          </div>
+        </mat-list-option>
+        
     </mat-selection-list>
   </div>

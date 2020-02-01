@@ -2,7 +2,11 @@ import { List, Category, ListItem } from './../core/models/list.component';
 import { ListService } from './../core/services/list.service';
 import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../core/services/image.service';
+import { SidenavService } from '../core/services/sidenav.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSidenav } from '@angular/material/sidenav';
+
+
 
 class ImageSnippet {
   pending = false;
@@ -25,14 +29,18 @@ export class EditListComponent implements OnInit {
   currentIndex: number;
   pendingSave: boolean;
   listID: number;
+  snav: MatSidenav;
+
   constructor(
     private route: ActivatedRoute,
     private imageService: ImageService,
     private listService: ListService,
+    private sidenavService: SidenavService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.sidenavService.sideNav.subscribe(sidenav => this.snav = sidenav);
     this.list = new List(null, null, null, null, null, null, null, null, []);
     this.listItem = this.addNewItem();
     this.route.paramMap.subscribe((param: any) => {
