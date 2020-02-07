@@ -10,7 +10,6 @@ import { List } from '../core/models/list.component';
   styleUrls: ['./view-list.component.css']
 })
 export class ViewListComponent implements OnInit {
-
   list: List;
   listID: number;
   constructor(
@@ -18,7 +17,7 @@ export class ViewListComponent implements OnInit {
     private listService: ListService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((param: any) => {
@@ -33,8 +32,14 @@ export class ViewListComponent implements OnInit {
           if (!categories.length) {
             return;
           }
-          const foundCategory = categories.find(category => category.Lists && category.Lists.find(list => list.ListID === this.listID));
-          this.list = foundCategory && foundCategory.Lists.find(list => list.ListID === this.listID);
+          const foundCategory = categories.find(
+            category =>
+              category.Lists &&
+              category.Lists.find(list => list.ListID === this.listID)
+          );
+          this.list =
+            foundCategory &&
+            foundCategory.Lists.find(list => list.ListID === this.listID);
           if (!this.list) {
             return this.router.navigate(['']);
           }
@@ -46,7 +51,6 @@ export class ViewListComponent implements OnInit {
         });
       }
     });
-    
   }
   deleteListing(id) {
     this.listService.deleteListing(id).subscribe(() => {

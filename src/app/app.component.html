@@ -1,6 +1,5 @@
 <div class="full-page-layout">
   <app-header style="z-index: 2" [snav]="snav"></app-header>
-
   <mat-sidenav-container style="height: 100%;">
     <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" opened class="mat-elevation-z2" style="width: 33%; min-width: 280px;" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" #snav>
       <mat-action-list style="height: 79px; border-bottom: 1px solid #eee;" color="primary">

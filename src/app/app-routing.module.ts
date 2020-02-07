@@ -4,7 +4,6 @@ import { EditListComponent } from './edit-list/edit-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -21,11 +20,11 @@ const routes: Routes = [
   {
     path: 'view/:id',
     component: ViewListComponent
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

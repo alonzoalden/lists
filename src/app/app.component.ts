@@ -11,7 +11,6 @@ import { SidenavService } from './core/services/sidenav.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent implements OnInit, OnDestroy {
   title = 'lists';
   lists: List[];
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   uncategorized: List[];
   panelOpenState: boolean;
   mobileQuery: MediaQueryList;
-  @ViewChild('snav', {static: true}) snav: MatSidenav;
+  @ViewChild('snav', { static: true }) snav: MatSidenav;
 
   // tslint:disable-next-line: variable-name
   private _mobileQueryListener: () => void;
@@ -33,7 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
-
   }
   ngOnInit() {
     this.sidenavService.registerSideNav(this.snav);
@@ -41,7 +39,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.listService.currentListings.subscribe(data => {
       if (data.length) {
         const dataRemoveNoneCategory = [...data];
-        const index = dataRemoveNoneCategory.findIndex((item) => item.Title === 'None');
+        const index = dataRemoveNoneCategory.findIndex(
+          item => item.Title === 'None'
+        );
         if (index > -1) {
           this.uncategorized = dataRemoveNoneCategory.splice(index, 1)[0].Lists;
         }

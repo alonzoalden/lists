@@ -11,7 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -31,7 +31,7 @@ import { ViewListComponent } from './view-list/view-list.component';
     HeaderComponent,
     EditListComponent,
     DashboardComponent,
-    ViewListComponent,
+    ViewListComponent
   ],
   imports: [
     BrowserModule,
@@ -58,4 +58,4 @@ import { ViewListComponent } from './view-list/view-list.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

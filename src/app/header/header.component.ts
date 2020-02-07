@@ -8,8 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class HeaderComponent implements OnInit {
   @Input() snav: MatSidenav;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
-
+  ngOnInit() {}
 }

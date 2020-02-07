@@ -6,8 +6,6 @@ import { SidenavService } from '../core/services/sidenav.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 
-
-
 class ImageSnippet {
   pending = false;
   status = 'init';
@@ -37,15 +35,14 @@ export class EditListComponent implements OnInit {
     private listService: ListService,
     private sidenavService: SidenavService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.sidenavService.sideNav.subscribe(sidenav => this.snav = sidenav);
+    this.sidenavService.sideNav.subscribe(sidenav => (this.snav = sidenav));
     this.list = new List(null, null, null, null, null, null, null, null, []);
     this.listItem = this.addNewItem();
     this.route.paramMap.subscribe((param: any) => {
       this.listID = Number(param.params.id);
-
 
       this.listService.currentListings.subscribe(data => {
         const newData = [...data];
@@ -55,8 +52,14 @@ export class EditListComponent implements OnInit {
         }
         this.categories = newData;
         if (this.listID) {
-          const foundCategory = data.find(category => category.Lists && category.Lists.find(list => list.ListID === this.listID));
-          this.list = foundCategory && foundCategory.Lists.find(list => list.ListID === this.listID);
+          const foundCategory = data.find(
+            category =>
+              category.Lists &&
+              category.Lists.find(list => list.ListID === this.listID)
+          );
+          this.list =
+            foundCategory &&
+            foundCategory.Lists.find(list => list.ListID === this.listID);
           if (!this.list) {
             return this.router.navigate(['']);
           }
@@ -66,10 +69,7 @@ export class EditListComponent implements OnInit {
             });
           }
         }
-
       });
-
-
     });
   }
   addNewLine() {
@@ -83,17 +83,18 @@ export class EditListComponent implements OnInit {
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
       this.imageService.uploadImage(this.selectedFile.file).subscribe(
-        (res) => {
-        },
-        (err) => {
-        });
+        res => {},
+        err => {}
+      );
     });
 
     reader.readAsDataURL(file);
   }
   addNewList() {
     if (this.list.CategoryID) {
-      this.list.CategoryTitle = this.categories.find(category => category.CategoryID === this.list.CategoryID).Title;
+      this.list.CategoryTitle = this.categories.find(
+        category => category.CategoryID === this.list.CategoryID
+      ).Title;
     }
     if (!this.list.CategoryTitle) {
       this.list.CategoryTitle = 'None';
@@ -104,8 +105,9 @@ export class EditListComponent implements OnInit {
       this.router.navigate(['view', data.ListID], { state: { data } });
 
       this.listService.currentListings.subscribe(categories => {
-
-        const foundCategory = categories.length && categories.find(category => category.CategoryID === data.CategoryID);
+        const foundCategory =
+          categories.length &&
+          categories.find(category => category.CategoryID === data.CategoryID);
         if (foundCategory) {
           if (!foundCategory.Lists) {
             foundCategory.Lists = [];
@@ -114,20 +116,20 @@ export class EditListComponent implements OnInit {
             foundCategory.Lists.unshift(data);
           }
         } else {
-          categories.unshift(new Category(
-            data.CategoryID,
-            data.CategoryTitle,
-            data.Description,
-            data.ImageURL,
-            data.Created,
-            data.Updated,
-            [data]
-          ));
+          categories.unshift(
+            new Category(
+              data.CategoryID,
+              data.CategoryTitle,
+              data.Description,
+              data.ImageURL,
+              data.Created,
+              data.Updated,
+              [data]
+            )
+          );
           this.listService.updateSelectedSubject(categories);
         }
-
       });
-
     });
   }
   onRemoveListItem(i) {
