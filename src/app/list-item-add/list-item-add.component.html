@@ -1,0 +1,49 @@
+<div class="full-page-layout add-item-panel mat-elevation-z8">
+    <div class="form-section">
+        <mat-icon style="position: absolute; right: 5px; margin-top: -10px;">arrow_drop_down</mat-icon>
+        <div class="panel-title" mat-subheader>
+            <span>{{editMode ? 'Edit' : 'Add'}} Item: {{currentIndex > -1 && editMode ? currentIndex+1 : ''}}</span>
+        </div>
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Item</mat-label>
+            <input [(ngModel)]="listItem.Title" [ngModelOptions]="{standalone: true}" matInput
+                placeholder="Enter your item">
+
+            <mat-hint>Please enter item</mat-hint>
+        </mat-form-field>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input [(ngModel)]="listItem.Description" [ngModelOptions]="{standalone: true}" matInput
+                    placeholder="Enter description">
+                <mat-hint>Please enter description</mat-hint>
+            </mat-form-field>
+            <div class="photo-row">
+                <button (click)="imageInput.click()" mat-stroked-button matTooltip="Add photo">
+                    <mat-icon matSuffix>add_a_photo</mat-icon>
+                </button>
+                <div class="img-section">
+                    <img alt="img" [matTooltip]="img"
+                        src="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg">
+                </div>
+                <input #imageInput [hidden]=true type="file" accept="image/*" (change)="processFile(imageInput)">
+            </div>
+        </div>
+    </div>
+    <div class="button-section">
+        <button *ngIf="!editMode" color="primary" [disabled]="!listItem.Title" mat-raised-button (click)="addNewLine();"
+            matTooltip="Add">
+            <mat-icon class="mat-18">add</mat-icon>
+        </button>
+        <button *ngIf="editMode" (click)="onAddItemEdit();" color="primary" mat-stroked-button matTooltip="Save">
+            <mat-icon class="mat-18">save</mat-icon>
+        </button>
+        <button *ngIf="editMode" color="warn" mat-stroked-button matTooltip="Remove">
+            <mat-icon class="mat-18">delete</mat-icon>
+        </button>
+        <button *ngIf="editMode" (click)="clearEditMode();" color="basic" mat-stroked-button matTooltip="Cancel">
+            <mat-icon class="mat-18">cancel</mat-icon>
+        </button>
+    </div>
+</div>

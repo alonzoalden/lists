@@ -2,7 +2,7 @@
   <mat-toolbar class="mat-elevation-z1 mat-toolbar mat-primary" style="z-index: 2; min-height: 80px;">
     <span>{{ !list.ListID ? 'Create New List' : 'Edit List: ' + list?.Title }}</span>
     <span class="spacer"></span>
-    <button mat-icon-button (click)="addNewList();" matTooltip="Save">
+    <button mat-icon-button (click)="list.ListID ? updateList() : addNewList();" matTooltip="Save">
       <mat-icon class="mat-18">save</mat-icon>
     </button>
     <button mat-icon-button matTooltip="More Options" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -44,7 +44,7 @@
                 <mat-option (click)="isTest = true;">
                   -- Create New Category --
                 </mat-option>
-                <mat-option *ngFor="let category of categories" [value]="category.CategoryID">
+                <mat-option *ngFor="let category of categories" [value]="category.CategoryID" (change)="list.CategoryTitle = category.Title">
                   <span>{{ category.Title }}</span>
                 </mat-option>
               </mat-select>
@@ -62,53 +62,6 @@
       </div>
       
       <div class="full-row-bottom">
-        <div class="full-page-layout add-item-panel mat-elevation-z2">
-          <div class="form-section">
-            <span class="panel-title" mat-subheader>
-              {{editMode ? 'Edit' : 'Add'}} Item: {{currentIndex > -1 && editMode ? currentIndex+1 : ''}}
-            </span>
-            <mat-form-field appearance="outline">
-              <mat-label>Item</mat-label>
-              <input [(ngModel)]="listItem.Title" [ngModelOptions]="{standalone: true}" matInput placeholder="Enter your item">
-  
-              <mat-hint>Please enter item</mat-hint>
-            </mat-form-field>
-            <div>
-              <mat-form-field appearance="outline">
-                <mat-label>Description</mat-label>
-                <input [(ngModel)]="listItem.Description" [ngModelOptions]="{standalone: true}" matInput placeholder="Enter description">
-                <mat-hint>Please enter description</mat-hint>
-              </mat-form-field>
-              <div class="photo-row">
-                <button (click)="imageInput.click()" mat-stroked-button matTooltip="Add photo">
-                  <mat-icon matSuffix>add_a_photo</mat-icon>
-                </button>
-                <div class="img-section">
-                  <img alt="img" [matTooltip]="img" src="https://icdn2.digitaltrends.com/image/digitaltrends/fujifilm-x-t30-hands-on-7174-1920x1280.jpg">
-                </div>
-                <input #imageInput
-                      [hidden]=true
-                      type="file"
-                      accept="image/*"
-                      (change)="processFile(imageInput)">
-              </div>
-            </div>
-          </div>
-          <div class="button-section">
-            <button *ngIf="!editMode" color="primary" [disabled]="!listItem.Title" mat-raised-button (click)="addNewLine();" matTooltip="Add" >
-              <mat-icon class="mat-18">add</mat-icon>
-            </button>
-            <button *ngIf="editMode" (click)="onAddItemEdit();" color="primary" mat-stroked-button matTooltip="Save">
-              <mat-icon class="mat-18">save</mat-icon>
-            </button>
-            <button *ngIf="editMode" color="warn" mat-stroked-button matTooltip="Remove">
-              <mat-icon class="mat-18">delete</mat-icon>
-            </button>
-            <button *ngIf="editMode" (click)="clearEditMode();" color="basic" mat-stroked-button matTooltip="Cancel">
-              <mat-icon class="mat-18">cancel</mat-icon>
-            </button>
-          </div>
-        </div>
         <div>
           <mat-nav-list>
             <mat-list-item class="item-view" *ngFor="let item of list.Items; let i = index;" (click)="onClickListItem(item, i)" [ngStyle]="{'background-color': currentIndex === i ? '#F0F0F0': '#FFFFFF'}">

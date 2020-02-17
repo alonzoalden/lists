@@ -41,35 +41,12 @@ export class EditListComponent implements OnInit {
     this.sidenavService.sideNav.subscribe(sidenav => (this.snav = sidenav));
     this.list = new List(null, null, null, null, null, null, null, null, []);
     this.listItem = this.addNewItem();
+    this.categories = this.listService.findAllCategories();
     this.route.paramMap.subscribe((param: any) => {
       this.listID = Number(param.params.id);
-
-      this.listService.currentListings.subscribe(data => {
-        const newData = [...data];
-        const index = newData.findIndex(items => items.Title === 'None');
-        if (index > -1) {
-          newData.splice(index, 1);
-        }
-        this.categories = newData;
-        if (this.listID) {
-          const foundCategory = data.find(
-            category =>
-              category.Lists &&
-              category.Lists.find(list => list.ListID === this.listID)
-          );
-          this.list =
-            foundCategory &&
-            foundCategory.Lists.find(list => list.ListID === this.listID);
-          if (!this.list) {
-            return this.router.navigate(['']);
-          }
-          if (this.list && !this.list.Items) {
-            this.listService.getListItems(this.listID).subscribe(items => {
-              this.list.Items = items;
-            });
-          }
-        }
-      });
+      if (this.listID) {
+        this.list = this.listService.findList(this.listID);
+      }
     });
   }
   addNewLine() {
@@ -91,15 +68,16 @@ export class EditListComponent implements OnInit {
     reader.readAsDataURL(file);
   }
   addNewList() {
-    if (this.list.CategoryID) {
-      this.list.CategoryTitle = this.categories.find(
-        category => category.CategoryID === this.list.CategoryID
-      ).Title;
-    }
+    // if (this.list.CategoryID) {
+    //   this.list.CategoryTitle = this.categories.find(
+    //     category => category.CategoryID === this.list.CategoryID
+    //   ).Title;
+    // }
     if (!this.list.CategoryTitle) {
       this.list.CategoryTitle = 'None';
     }
     this.pendingSave = true;
+
     this.listService.addListing(this.list).subscribe(data => {
       this.pendingSave = false;
       this.router.navigate(['view', data.ListID], { state: { data } });
@@ -130,6 +108,20 @@ export class EditListComponent implements OnInit {
           this.listService.updateSelectedSubject(categories);
         }
       });
+    });
+  }
+  updateList(list: List) {
+    // if (this.list.CategoryID) {
+    //   this.list.CategoryTitle = this.categories.find(
+    //     category => category.CategoryID === this.list.CategoryID
+    //   ).Title;
+    // }
+    if (!this.list.CategoryTitle) {
+      this.list.CategoryTitle = 'None';
+    }
+    this.pendingSave = true;
+    this.listService.updateListing(this.list).subscribe(data => {
+      this.pendingSave = false;
     });
   }
   onRemoveListItem(i) {

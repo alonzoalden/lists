@@ -1,5 +1,5 @@
 
-<div>
+<div style="display: flex; flex-direction: column; height: 100%;">
   <mat-toolbar color="primary" class="mat-elevation-z2" style="z-index: 2; min-height: 80px;">
     <span>{{ list?.Title }}</span>
     <span class="spacer"></span>
@@ -25,7 +25,7 @@
     </mat-menu>
 
   </mat-toolbar>
-  <div class="mat-elevation-z2" style="border-radius: 0 0 2px 2px; padding: 10px; background-color: #fff;">
+  <div class="mat-elevation-z2" style="flex: 4; padding: 10px; background-color: #fff;">
     <mat-selection-list #shoes style="padding-bottom: 10px;">
         <mat-list-option class="item-view" style="border-bottom: 0;" *ngFor="let item of list.Items; let i = index;" (click)="onClickListItem(item, i)" [ngStyle]="{'background-color': currentIndex === i ? '#F0F0F0': '#FFFFFF'}">
           <div style="display: flex; align-items: center;">
@@ -47,3 +47,5 @@
         
     </mat-selection-list>
   </div>
+  <app-list-item-add></app-list-item-add>
+</div>

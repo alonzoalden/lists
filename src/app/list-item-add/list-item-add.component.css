@@ -1,0 +1,98 @@
+.form-content {
+    padding: 0;
+    border-radius: 0px;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+}
+.form-content .full-row {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 24px;
+}
+.form-content .full-row .full-row-body {
+    display: flex;
+    width: 100%;
+}
+.form-content .full-row .full-row-body mat-form-field {
+    flex: 1;
+    margin-bottom: 12px;
+    padding-right: 8px;
+}
+.form-content .full-row .full-row-body mat-form-field:last-of-type {
+    padding-left: 8px;
+}
+
+.form-content .full-row-bottom {
+    max-height: calc(100vh - 305px);
+    display: flex;
+}
+.form-content .full-row-bottom > div {
+    overflow: scroll;
+}
+.form-content .full-row-bottom > div:first-of-type {
+    z-index: 10;
+}
+.form-content .full-row-bottom > div:last-of-type {
+    flex: 1;
+}
+
+.form-field-title {
+    padding-right: 8px;
+    flex: 1;
+    margin-bottom: 12px;
+}
+.header-label {
+    line-height: 16px;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Roboto,'Helvetica Neue',sans-serif;
+    color: rgba(0,0,0,.54);
+}
+.add-item-panel .form-section {
+    padding: 16px 24px;
+    flex: 1;
+    background-color: #f7f7f7;
+}
+.add-item-panel .panel-title {
+    line-height: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Roboto,'Helvetica Neue',sans-serif;
+    color: rgba(0,0,0,.54);    
+}
+.add-item-panel mat-form-field {
+    margin-bottom: 12px;
+}
+.add-item-panel .photo-row {
+    display: flex;
+    align-items: center;
+}
+.add-item-panel .photo-row button {
+    height: 51px;
+}
+.add-item-panel .photo-row .img-section {
+    flex: 2;
+    text-align: center;
+}
+.add-item-panel .photo-row .img-section img {
+    width: 64px;
+}
+.add-item-panel .button-section {
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #fafafa;
+    padding: 10px 16px;
+    border-top: 1px solid #eee;
+}
+.add-item-panel .button-section button {
+    margin-left: 5px; 
+}
+
+.full-row-bottom mat-nav-list {
+    background-color: #fcfcfc;
+    width: 100%;
+}

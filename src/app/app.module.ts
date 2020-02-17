@@ -24,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './core/interceptors/http.token.interceptor';
 import { ViewListComponent } from './view-list/view-list.component';
+import { ListItemAddComponent } from './list-item-add/list-item-add.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ViewListComponent } from './view-list/view-list.component';
     HeaderComponent,
     EditListComponent,
     DashboardComponent,
-    ViewListComponent
+    ViewListComponent,
+    ListItemAddComponent
   ],
   imports: [
     BrowserModule,
